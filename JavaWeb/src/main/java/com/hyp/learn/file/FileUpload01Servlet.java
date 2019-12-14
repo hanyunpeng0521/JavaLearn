@@ -1,4 +1,4 @@
-package com.hyp.learn.servlet;
+package com.hyp.learn.file;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -17,9 +17,9 @@ import java.io.PrintWriter;
  * Include in com.hyp.learn.servlet
  * hyp create at 19-12-13
  **/
-@MultipartConfig(location = "/home/hyp/Downloads")
-@WebServlet(name = "upload", urlPatterns = {"/upload"})
-public class UploadServlet extends HttpServlet {
+//@MultipartConfig(location = "/home/hyp/Downloads")
+//@WebServlet(name = "upload", urlPatterns = {"/upload"})
+public class FileUpload01Servlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

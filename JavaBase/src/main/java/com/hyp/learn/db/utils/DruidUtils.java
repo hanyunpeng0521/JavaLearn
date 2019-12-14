@@ -2,11 +2,14 @@ package com.hyp.learn.db.utils;
 
 
 import com.alibaba.druid.pool.DruidDataSourceFactory;
+import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.sql.DataSource;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.Properties;
 
 /**
@@ -36,16 +39,18 @@ public class DruidUtils {
     private DruidUtils() {
         Properties properties = new Properties();
         try {
-            properties.load(Thread.currentThread().getContextClassLoader().getSystemResourceAsStream("db.properties"));
+            properties.load(ClassLoader.getSystemResourceAsStream("db.properties"));
+            String sql = DruidUtils.class.getClassLoader().getResource("blog.sql").getPath();
+            ds = DruidDataSourceFactory.createDataSource(properties);
+            if (StringUtils.isNotBlank(sql) && sql.endsWith(".sql")) {
+                QueryRunner qr = new QueryRunner(ds);
+                System.out.println(qr.execute("RUNSCRIPT FROM '" + sql + "'"));
+            }
         } catch (IOException e) {
             e.printStackTrace();
-        }
-        try {
-            ds = DruidDataSourceFactory.createDataSource(properties);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println(ds);
     }
 
     /**
@@ -66,6 +71,7 @@ public class DruidUtils {
 
     public static void main(String[] args) throws SQLException {
         System.out.println(DruidUtils.getConnection());
+
     }
 
 }

@@ -38,6 +38,9 @@ ehthumbs.db
 Desktop.ini
 
 ### Others ###
+.attach_pid*
+*/logs
+logs/
 *.log
 */log
 LOG_PATH_IS_UNDEFINED/
